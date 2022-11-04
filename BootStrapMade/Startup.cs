@@ -1,6 +1,8 @@
+using BootStrapMade.DAL;
 using Microsoft.AspNetCore.Builder;
 using Microsoft.AspNetCore.Hosting;
 using Microsoft.AspNetCore.Http;
+using Microsoft.EntityFrameworkCore;
 using Microsoft.Extensions.DependencyInjection;
 using Microsoft.Extensions.Hosting;
 using System;
@@ -17,6 +19,12 @@ namespace BootStrapMade
         public void ConfigureServices(IServiceCollection services)
         {
             services.AddControllersWithViews();
+            services.AddDbContext<AppDbContext>(options =>
+            {
+
+                options.UseSqlServer("Server=CATR4; Database= MentorBootstrapMade; Trusted_Connection=true;");
+            }
+            );
         }
 
         // This method gets called by the runtime. Use this method to configure the HTTP request pipeline.
@@ -25,6 +33,7 @@ namespace BootStrapMade
             if (env.IsDevelopment())
             {
                 app.UseDeveloperExceptionPage();
+            
             }
 
             app.UseRouting();

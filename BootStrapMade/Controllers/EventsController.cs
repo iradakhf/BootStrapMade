@@ -1,4 +1,6 @@
-﻿using Microsoft.AspNetCore.Mvc;
+﻿using BootStrapMade.DAL;
+using BootStrapMade.Models;
+using Microsoft.AspNetCore.Mvc;
 using System;
 using System.Collections.Generic;
 using System.Linq;
@@ -8,9 +10,15 @@ namespace BootStrapMade.Controllers
 {
     public class EventsController : Controller
     {
+        private readonly AppDbContext _context;
+        public EventsController(AppDbContext context)
+        {
+            _context = context;
+        }
         public IActionResult Index()
         {
-            return View();
+            List<Event> events = _context.Events.ToList();
+            return View(events);
         }
     }
 }
